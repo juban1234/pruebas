@@ -1,4 +1,35 @@
 
+function isAdult(birthdate) {
+  let myBirthday = birthdate.split('-')
+  let day = parseInt(myBirthday[2])
+  let month = parseInt(myBirthday[1])
+  let year = parseInt(myBirthday[0])
+
+  let currentDate = new Date()
+  let currentDay = currentDate.getDate()
+  let currentMonth = currentDate.getMonth() + 1
+  let currentYear = currentDate.getFullYear()
+
+  if ((currentYear - year) > 18) {
+    return true
+  } else if ((currentYear - year) === 18) {
+    if ((currentMonth - month) > 0) {
+      return true
+    } else if ((currentMonth - month) === 0) {
+      if ((currentDay - day) >= 0) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+}
+
+
 let eligibleVoters = [
   { name: 'Joe Done', birthdate: '2010-01-25' },
   { name: 'Alice Smith', birthdate: '1998-03-15' },
@@ -12,37 +43,6 @@ let eligibleVoters = [
   { name: 'Isabella Lopez', birthdate: '1995-02-14' }
 ];
 
-function isAdult(birthdate) {
-  let myBirthday = birthdate.split('-')
-  let day = parseInt(myBirthday[2])
-  let month = parseInt(myBirthday[1])
-  let year = parseInt(myBirthday[0])
+let mayores = eligibleVoters.filter(person => isAdult(person.birthdate));
 
-  let currentDate = new Date()
-  let currentDay = currentDate.getDate()
-  let currentMonth = currentDate.getMonth() + 1
-  let currentYear = currentDate.getFullYear()
 
-  if ((currentYear - year) > 18) {
-    return 'Mayor de Edad'
-  } else if ((currentYear - year) === 18) {
-    if ((currentMonth - month) > 0) {
-      return 'Mayor de Edad'
-    } else if ((currentMonth - month) === 0) {
-      if ((currentDay - day) >= 0) {
-        return 'Mayor de Edad'
-      } else {
-        return 'No es mayor de edad por el día'
-      }
-    } else {
-      return 'No es mayor de edad por el mes'
-    }
-  } else {
-    return 'No es mayor de edad por el año'
-  }
-}
-
-console.log(isAdult('2006-06-01'))
-console.log(isAdult('2006-5-02'))
-console.log(isAdult('2007-10-02'))
-console.log(isAdult('2020-01-19'))
